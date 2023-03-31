@@ -161,4 +161,4 @@ button {
 }
 
 #attribution span { font-size: .5rem; text-align: center; }
-#attribution a { font-size: .5rem; color: hsl(228, 45%, 44%); }
+#attribution a { font-size: .5rem; color: var(--key-group2-bg); }
