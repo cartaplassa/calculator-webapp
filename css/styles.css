@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    font-size: 4vw;
+}
+
+:root {
+    --button-size: 3rem
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calc > * {
+    margin-bottom: 2rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#toggle-cont {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#toggle-switcher {
+    background-color: black;
+    height: 1rem;
+    border-radius: 9999rem;
+}
+
+#toggle-circle {
+    background-color: white;
+    height: .8rem;
+    width: .8rem;
+    border-radius: 9999rem;
+}
+
+#output {
+    height: 3rem;
+    background-color: black;
+}
+
+#pad {
+    display: grid;
+    grid-template-columns: repeat(4, var(--button-size));
+    grid-template-rows: repeat(5, var(--button-size));
+    gap: 1rem;
+}
+
+#button-reset, #button-equal {
+    grid-column: span 2;
+}
+
+#attribution span { font-size: .5rem; text-align: center; }
+#attribution a { font-size: .5rem; color: hsl(228, 45%, 44%); }
