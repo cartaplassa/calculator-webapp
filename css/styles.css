@@ -1,10 +1,30 @@
 * {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: 'League Spartan', sans-serif;
     font-size: 4vw;
 }
 
 :root {
-    --button-size: 3rem
+    --button-size: 4rem;
+    --border-radius: .8rem;
+    --border-max: 9999rem;
+    --toggle-box-width: 4.4rem;
+    --toggle-box-height: 1.6rem;
+    --toggle-circle: 1rem;
+
+    --font-s: 0.6rem;
+    --font-l: 2.5rem;
+}
+
+.font-s {
+    font-size: var(--font-s);
+}
+
+.font-l {
+    font-size: var(--font-l);
 }
 
 html {
@@ -23,14 +43,14 @@ body {
 
 main {
     flex-grow: 1;
-    padding: 1rem;
+    padding: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #calc > * {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 header {
@@ -41,27 +61,61 @@ header {
 #toggle-cont {
     display: grid;
     grid-template-columns: auto auto;
+    gap: .5em;
+}
+
+#toggle-positions {
+    padding: 0 calc(var(--toggle-box-height) / 2);
+    display: flex;
+    justify-content: space-between;
+}
+
+#toggle-title-wrapper {
+    width: var(--toggle-box-width);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #toggle-switcher {
     background-color: black;
-    height: 1rem;
-    border-radius: 9999rem;
+    height: var(--toggle-box-height);
+    width: var(--toggle-box-width);
+    border-radius: var(--border-max);
+    display: flex;
+    align-items: center;
 }
 
 #toggle-circle {
     background-color: white;
-    height: .8rem;
-    width: .8rem;
-    border-radius: 9999rem;
+    height: var(--toggle-circle);
+    width: var(--toggle-circle);
+    border-radius: var(--border-max);
+}
+
+#toggle-switcher[theme-chosen="1"] > #toggle-circle {
+    transform: translateX(calc( (var(--toggle-box-height) - var(--toggle-circle)) / 2 ));
+}
+
+#toggle-switcher[theme-chosen="2"] > #toggle-circle {
+    transform: translateX(calc( (var(--toggle-box-width) - var(--toggle-circle)) / 2 ));
+}
+
+#toggle-switcher[theme-chosen="3"] > #toggle-circle {
+    transform: translateX(calc( var(--toggle-box-width) - (var(--toggle-box-height) - var(--toggle-circle)) / 2 - var(--toggle-circle) ));
 }
 
 #output {
-    height: 3rem;
+    border-radius: var(--border-radius);
     background-color: black;
+    height: 5.5rem;
 }
 
 #pad {
+    border-radius: var(--border-radius);
+    background-color: black;
+    padding: 1.5rem;
+
     display: grid;
     grid-template-columns: repeat(4, var(--button-size));
     grid-template-rows: repeat(5, var(--button-size));
