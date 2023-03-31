@@ -1,0 +1,51 @@
+
+:root[theme-chosen='1'] {
+    --background-main: hsl(222, 26%, 31%);
+    --background-keypad: hsl(223, 31%, 20%);
+    --background-output: hsl(224, 36%, 15%);
+  
+    --key-group1-bg: hsl(30, 25%, 89%);
+    --key-group1-shadow: hsl(28, 16%, 65%);
+    --key-group2-bg: hsl(6, 63%, 50%);
+    --key-group2-shadow: hsl(6, 70%, 34%);
+    --key-group3-bg: hsl(225, 21%, 49%);
+    --key-group3-shadow: hsl(224, 28%, 35%);
+  
+    --text-output: hsl(0, 0%, 100%);
+    --text-primary: hsl(221, 14%, 31%);
+    --text-secondary: hsl(0, 0%, 100%);
+  }
+  
+  :root[theme-chosen='2'] {
+    --background-main: hsl(0, 0%, 90%);
+    --background-keypad: hsl(0, 5%, 81%);
+    --background-output: hsl(0, 0%, 93%);
+  
+    --key-group1-bg: #e5e4e1;
+    --key-group1-shadow: #a69d91;
+    --key-group2-bg: hsl(25, 98%, 40%);
+    --key-group2-shadow: hsl(25, 99%, 27%);
+    --key-group3-bg: hsl(185, 42%, 37%);
+    --key-group3-shadow: hsl(185, 58%, 25%);
+  
+    --text-output: hsl(60, 10%, 19%);
+    --text-primary: hsl(60, 10%, 19%);
+    --text-secondary: hsl(0, 0%, 100%);
+  }
+  
+  :root[theme-chosen='3'] {
+    --background-main: hsl(268, 75%, 9%);
+    --background-keypad: hsl(268, 71%, 12%);
+    --background-output: hsl(268, 71%, 12%);
+  
+    --key-group1-bg: hsl(281, 89%, 26%);
+    --key-group1-shadow: hsl(285, 91%, 52%);
+    --key-group2-bg: hsl(176, 100%, 44%);
+    --key-group2-shadow: hsl(177, 92%, 70%);
+    --key-group3-bg: hsl(268, 47%, 21%);
+    --key-group3-shadow: hsl(290, 70%, 36%);
+  
+    --text-output: #ffe53d;
+    --text-primary: #ffe53d;
+    --text-secondary: #ffffff;
+  }

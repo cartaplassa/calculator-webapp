@@ -1,3 +1,5 @@
+@import './themes.css';
+
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +16,8 @@
     --toggle-box-width: 4.4rem;
     --toggle-box-height: 1.6rem;
     --toggle-circle: 1rem;
+    --key-volume: .3rem;
+    --key-gap: 1rem;
 
     --font-s: 0.6rem;
     --font-l: 2.5rem;
@@ -39,6 +43,8 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    color: var(--text-output);
+    background-color: var(--background-main);
 }
 
 main {
@@ -78,7 +84,7 @@ header {
 }
 
 #toggle-switcher {
-    background-color: black;
+    background-color: var(--background-keypad);
     height: var(--toggle-box-height);
     width: var(--toggle-box-width);
     border-radius: var(--border-max);
@@ -87,7 +93,7 @@ header {
 }
 
 #toggle-circle {
-    background-color: white;
+    background-color: var(--key-group2-bg);
     height: var(--toggle-circle);
     width: var(--toggle-circle);
     border-radius: var(--border-max);
@@ -107,19 +113,47 @@ header {
 
 #output {
     border-radius: var(--border-radius);
-    background-color: black;
-    height: 5.5rem;
+    background-color: var(--background-output);
+    min-height: 5.5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.5rem;
 }
 
 #pad {
     border-radius: var(--border-radius);
-    background-color: black;
+    background-color: var(--background-keypad);
     padding: 1.5rem;
 
     display: grid;
     grid-template-columns: repeat(4, var(--button-size));
     grid-template-rows: repeat(5, var(--button-size));
-    gap: 1rem;
+    gap: calc(var(--key-gap) + var(--key-volume)) var(--key-gap);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.color-button1 {
+    color: var(--text-primary);
+    background-color: var(--key-group1-bg);
+    box-shadow: 0 var(--key-volume) var(--key-group1-shadow);
+}
+
+.color-button2 {
+    color: white;
+    background-color: var(--key-group2-bg);
+    box-shadow: 0 var(--key-volume) var(--key-group2-shadow);
+}
+
+.color-button3 {
+    color: white;
+    background-color: var(--key-group3-bg);
+    box-shadow: 0 var(--key-volume) var(--key-group3-shadow);
 }
 
 #button-reset, #button-equal {
