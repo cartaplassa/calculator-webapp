@@ -29,17 +29,17 @@ class Calculator {
     }
 
     adjunctOperator(operator) {
-        if (this.memory.at(-1) === '.') {this.memory = this.memory.slice(0, -1)};
-        if (this.incompleteExpression.test(this.memory)) {this.memory = this.memory.slice(0, -3)};
-        if (this.correctExpression.test(this.memory)) {this.update(true)};
+        if (this.memory.at(-1) === '.') this.memory = this.memory.slice(0, -1);
+        if (this.incompleteExpression.test(this.memory)) this.memory = this.memory.slice(0, -3);
+        if (this.correctExpression.test(this.memory)) this.update(true);
         this.memory += ` ${operator} `;
         this.update();
     }
 
     delete() {
         if (this.memory === '') return;
-        if (this.incompleteExpression.test(this.memory)) {this.memory = this.memory.slice(0, -3)}
-        else {this.memory = this.memory.slice(0, -1)};
+        if (this.incompleteExpression.test(this.memory)) this.memory = this.memory.slice(0, -3);
+        else this.memory = this.memory.slice(0, -1);
         this.update();
     }
 
@@ -52,7 +52,7 @@ class Calculator {
     }
 
     calculate(expression = this.memory) {
-        if (expression.at(-1) === '.') {expression = expression.slice(0, -1)};
+        if (expression.at(-1) === '.') expression = expression.slice(0, -1);
         if (!isNaN(Number(expression))) return Number(expression);
         if (this.incompleteExpression.test(expression)) return Number(expression.slice(0, -3));
         if (this.correctExpression.test(expression)) {
