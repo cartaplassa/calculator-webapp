@@ -196,7 +196,7 @@ button:hover {
     box-shadow: 0 var(--key-volume) var(--key-group3-shadow);
 }
 
-#button-reset, #button-equal {
+#button-equal {
     grid-column: span 2;
 }
 

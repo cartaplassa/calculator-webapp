@@ -1,9 +1,10 @@
 const resultNode = document.querySelector('#result');
 const numericButtons = document.querySelectorAll('.button-number');
-const operations = document.querySelectorAll('.button-operation');
-const deleteBtn = document.querySelector('#button-del');
-const resetBtn = document.querySelector('#button-reset');
-const equalsBtn = document.querySelector('#button-equal');
+const operationsButtons = document.querySelectorAll('.button-operation');
+const deleteButton = document.querySelector('#button-del');
+const resetButton = document.querySelector('#button-reset');
+const equalsButton = document.querySelector('#button-equal');
+const copyButton = document.querySelector('#button-copy');
 
 
 class Calculator {
@@ -78,14 +79,16 @@ class Calculator {
 
 const calculator = new Calculator(resultNode);
 
-deleteBtn.addEventListener('click', () => calculator.delete());
-resetBtn.addEventListener('click', () => calculator.reset());
-equalsBtn.addEventListener('click', () => calculator.update(true));
+deleteButton.addEventListener('click', () => calculator.delete());
+resetButton.addEventListener('click', () => calculator.reset());
+equalsButton.addEventListener('click', () => calculator.update(true));
 
 numericButtons.forEach(button => {
   button.addEventListener('click', () => calculator.adjunctNumber(button.value));
 });
 
-operations.forEach(button => {
+operationsButtons.forEach(button => {
   button.addEventListener('click', () => calculator.adjunctOperator(button.value));
 });
+
+copyButton.addEventListener('click', async () => await navigator.clipboard.writeText(resultNode.textContent))
