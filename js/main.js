@@ -59,7 +59,12 @@ class Calculator {
         if (this.checkLastCharDot()) this.memory = this.memory.slice(0, -1);
         if (operator === '-') {
             if (this.memory === '-') return;
-            if (this.memory === '' || this.checkIncompleteExpression()) {
+            if (this.memory === '0') {
+                this.memory = operator;
+                this.update();
+                return;
+            }
+            if (this.checkIncompleteExpression()) {
                 this.memory += operator;
                 this.update();
                 return;
