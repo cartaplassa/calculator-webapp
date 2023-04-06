@@ -24,7 +24,7 @@ class Calculator {
     }
 
     checkCorrectExpression(target = this.memory) {
-        return /^(\-?\d(\.\d+)?)+\s[\+\-\*\/]\s(\-?\d(\.\d+)?)+$/.test(target);
+        return /(\-?\d+(\.\d+)?)\s[\+\-\*\/]\s(\-?\d+(\.\d+)?)/.test(target);
     }
 
     checkLastCharDot(target = this.memory) {
@@ -36,7 +36,7 @@ class Calculator {
     }
 
     checkNaN(target = this.memory) {
-        return /(^$)|(^0$)|(^Infinity$)|(^NaN$)/.test(target);
+        return /(^$)|(^0$)|(^\-?Infinity$)|(^NaN$)/.test(target);
     }
 
     adjunctNumber(number) {
@@ -84,7 +84,7 @@ class Calculator {
     }
 
     update(rewrite = false) {
-        console.log('u' + this.memory);
+        console.log('Memory: ' + this.memory);
         if (this.checkNaN()) this.memory = '0';
         if (rewrite) {
             this.memory = this.calculate();
