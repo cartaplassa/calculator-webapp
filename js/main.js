@@ -20,7 +20,7 @@ class Calculator {
     }
 
     checkIncompleteExpression(target = this.memory) {
-        return /\s[\+\-\*\/]\s$/.test(target);
+        return /\s[\+\-\*\/]\s\-?$/.test(target);
     }
 
     checkCorrectExpression(target = this.memory) {
@@ -36,7 +36,7 @@ class Calculator {
     }
 
     checkNaN(target = this.memory) {
-        return /(^$)|(^0$)|(\s0$)|(^Infinity$)|(^NaN$)/.test(target);
+        return /(^$)|(^0$)|(^Infinity$)|(^NaN$)/.test(target);
     }
 
     adjunctNumber(number) {
@@ -46,6 +46,7 @@ class Calculator {
     }
 
     adjunctDot() {
+        if (this.checkNaN()) this.memory = '0'
         if (this.checkDotAlreadyPlaced()) return;
         if (this.checkIncompleteExpression()) this.memory += '0';
         this.memory += '.';
@@ -53,34 +54,38 @@ class Calculator {
     }
 
     adjunctOperator(operator) {
+        if (this.checkCorrectExpression()) this.update(true);
+        if (this.checkNaN()) this.memory = '0';
+        if (this.checkLastCharDot()) this.memory = this.memory.slice(0, -1);
         if (operator === '-') {
             if (this.memory === '-') return;
-            if (this.checkNaN()) this.memory = operator;
-            if (this.checkIncompleteExpression()) this.memory += operator;
-            this.update();
-            return;
+            if (this.memory === '' || this.checkIncompleteExpression()) {
+                this.memory += operator;
+                this.update();
+                return;
+            }
         }
-        if (this.checkLastCharDot()) this.memory = this.memory.slice(0, -1);
         if (this.checkIncompleteExpression()) this.memory = this.memory.slice(0, -3);
-        if (this.checkCorrectExpression()) this.update(true);
         this.memory += ` ${operator} `;
         this.update();
     }
 
     delete() {
-        console.log(this.checkNaN())
         if (this.checkNaN()) this.memory = '';
-        if (this.checkIncompleteExpression()) this.memory = this.memory.slice(0, -3);
+        if (this.checkIncompleteExpression()) this.memory = this.memory.slice(0, -3)
+        // else if 
         else this.memory = this.memory.slice(0, -1);
         this.update();
     }
 
     update(rewrite = false) {
-        if (this.checkNaN()) {this.memory = '0'};
+        console.log('u' + this.memory);
+        if (this.checkNaN()) this.memory = '0';
         if (rewrite) {
             this.memory = this.calculate();
         }
-        this.resultNode.textContent = this.memory;
+        if (this.memory === '') this.resultNode.textContent = '0'
+        else this.resultNode.textContent = this.memory;
     }
 
     calculate(expression = this.memory) {
@@ -105,6 +110,7 @@ class Calculator {
             }
             return Number(result.toFixed(6)).toString();
         }
+        return '';
     }
 }
 
