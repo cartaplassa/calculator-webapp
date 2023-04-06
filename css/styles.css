@@ -200,5 +200,5 @@ button:hover {
     grid-column: span 2;
 }
 
-#attribution span { font-size: .5rem; text-align: center; }
-#attribution a { font-size: .5rem; color: var(--key-group2-bg); }
+#attribution span { font-size: 1rem; text-align: center; }
+#attribution a { font-size: 1rem; color: var(--key-group2-bg); }
