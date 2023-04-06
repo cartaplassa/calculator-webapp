@@ -5,14 +5,12 @@ const deleteButton = document.querySelector('#button-del');
 const resetButton = document.querySelector('#button-reset');
 const equalsButton = document.querySelector('#button-equal');
 const copyButton = document.querySelector('#button-copy');
+const dotButton = document.querySelector('#button-dot');
 
 
 class Calculator {
     constructor(resultNode) {
         this.resultNode = resultNode;
-        this.incompleteExpression = /\s[\+\-\*\/]\s$/;
-        this.correctExpression = /^(\d(\.\d+)?)+\s[\+\-\*\/]\s(\d(\.\d+)?)+$/;
-        this.zeroRegex = /(^$)|(^0$)|(\s0$)/;
         this.reset();
     }
 
@@ -21,31 +19,64 @@ class Calculator {
         this.resultNode.textContent = '0';
     }
 
+    checkIncompleteExpression(target = this.memory) {
+        return /\s[\+\-\*\/]\s$/.test(target);
+    }
+
+    checkCorrectExpression(target = this.memory) {
+        return /^(\-?\d(\.\d+)?)+\s[\+\-\*\/]\s(\-?\d(\.\d+)?)+$/.test(target);
+    }
+
+    checkLastCharDot(target = this.memory) {
+        return target.at(-1) === '.';
+    }
+
+    checkDotAlreadyPlaced(target = this.memory) {
+        return target.split(' ').at(-1).includes('.');
+    }
+
+    checkNaN(target = this.memory) {
+        return /(^$)|(^0$)|(\s0$)|(^Infinity$)|(^NaN$)/.test(target);
+    }
+
     adjunctNumber(number) {
-        if (number === '.' && this.memory.split(' ').at(-1).includes('.')) return;
-        if (number === '.' && this.incompleteExpression.test(this.memory)) this.memory += '0';
-        if (!(number === '.') && this.zeroRegex.test(this.memory)) this.memory = this.memory.slice(0, -1);
+        if (this.checkNaN()) this.memory = '';
         this.memory += number;
         this.update();
     }
 
+    adjunctDot() {
+        if (this.checkDotAlreadyPlaced()) return;
+        if (this.checkIncompleteExpression()) this.memory += '0';
+        this.memory += '.';
+        this.update();
+    }
+
     adjunctOperator(operator) {
-        if (this.memory.at(-1) === '.') this.memory = this.memory.slice(0, -1);
-        if (this.incompleteExpression.test(this.memory)) this.memory = this.memory.slice(0, -3);
-        if (this.correctExpression.test(this.memory)) this.update(true);
+        if (operator === '-') {
+            if (this.memory === '-') return;
+            if (this.checkNaN()) this.memory = operator;
+            if (this.checkIncompleteExpression()) this.memory += operator;
+            this.update();
+            return;
+        }
+        if (this.checkLastCharDot()) this.memory = this.memory.slice(0, -1);
+        if (this.checkIncompleteExpression()) this.memory = this.memory.slice(0, -3);
+        if (this.checkCorrectExpression()) this.update(true);
         this.memory += ` ${operator} `;
         this.update();
     }
 
     delete() {
-        if (this.memory === '') return;
-        if (this.incompleteExpression.test(this.memory)) this.memory = this.memory.slice(0, -3);
+        console.log(this.checkNaN())
+        if (this.checkNaN()) this.memory = '';
+        if (this.checkIncompleteExpression()) this.memory = this.memory.slice(0, -3);
         else this.memory = this.memory.slice(0, -1);
         this.update();
     }
 
     update(rewrite = false) {
-        if (this.memory === '') {this.memory = '0'};
+        if (this.checkNaN()) {this.memory = '0'};
         if (rewrite) {
             this.memory = this.calculate();
         }
@@ -53,10 +84,10 @@ class Calculator {
     }
 
     calculate(expression = this.memory) {
-        if (expression.at(-1) === '.') expression = expression.slice(0, -1);
-        if (!isNaN(Number(expression))) return Number(expression);
-        if (this.incompleteExpression.test(expression)) return Number(expression.slice(0, -3));
-        if (this.correctExpression.test(expression)) {
+        if (this.checkLastCharDot(expression)) expression = expression.slice(0, -1);
+        if (!isNaN(Number(expression))) return Number(expression).toString();
+        if (this.checkIncompleteExpression(expression)) return Number(expression.slice(0, -3)).toString();
+        if (this.checkCorrectExpression(expression)) {
             const temp = expression.split(' ');
             let result;
             switch (temp[1]) {
@@ -90,5 +121,7 @@ numericButtons.forEach(button => {
 operationsButtons.forEach(button => {
   button.addEventListener('click', () => calculator.adjunctOperator(button.value));
 });
+
+dotButton.addEventListener('click', () => calculator.adjunctDot());
 
 copyButton.addEventListener('click', async () => await navigator.clipboard.writeText(resultNode.textContent))
