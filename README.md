@@ -36,7 +36,7 @@ Users should be able to:
 
 ### Links
 
-[Solution URL](https://github.com/zarni-ein/calculator-webapp) | [Live URL](https://zarni-ein.github.io/calculator-webapp/)
+[Solution URL](https://github.com/cartaplassa/calculator-webapp) | [Live URL](https://cartaplassa.github.io/calculator-webapp/)
 
 ## My process
 
